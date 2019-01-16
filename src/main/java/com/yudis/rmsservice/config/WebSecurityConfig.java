@@ -1,14 +1,14 @@
 package com.yudis.rmsservice.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.yudis.rmsservice.security.CustomUserDetailsService;
 import com.yudis.rmsservice.security.JwtAuthenticationEntryPoint;
 import com.yudis.rmsservice.security.JwtAuthenticationFilter;
+import com.yudis.rmsservice.security.JwtTokenProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -30,14 +31,17 @@ import com.yudis.rmsservice.security.JwtAuthenticationFilter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	CustomUserDetailsService customUserDetailsService;
+	private CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
 
+	@Autowired
+	private JwtTokenProvider jwtProvider;
+	
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
-		return new JwtAuthenticationFilter();
+		return new JwtAuthenticationFilter(jwtProvider, customUserDetailsService);
 	}
 
 	@Override
@@ -80,17 +84,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.css",
                 "/**/*.js")
                 .permitAll()
-            .antMatchers("/api/auth/**")
+            .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
                 .permitAll()
-//            .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
-//                .permitAll()
-            .antMatchers(HttpMethod.GET, "/api/users/**")
+            .antMatchers("/api/v1/auth/**")
                 .permitAll()
             .anyRequest()
-                .authenticated();
+                .permitAll();
 
 		// Add our custom JWT security filter
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**");
+		
+	}
 }
