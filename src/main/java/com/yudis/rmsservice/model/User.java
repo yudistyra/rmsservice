@@ -16,6 +16,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/*
+ * This class is used to store information about an user 
+ * to do authentication
+ * and specify its role
+ * 
+ */
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -35,7 +42,15 @@ public class User {
 	private String email;
 	@NotEmpty(message = "*Please provide a Name")
 	private String name;
+	
+	/*
+	 * Used to indicate whether the user is active or inactive for ....
+	 */
 	private boolean active;
+	
+	/*
+	 * Used to give permission for user to perform a group of tasks
+	 */
 	@Nullable
 	@OneToOne
 	private Role role;

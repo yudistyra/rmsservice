@@ -15,17 +15,34 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-
+/*
+ * This class is used to handle the user token
+ */
 @Component
 public class JwtTokenProvider {
 	private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
-	
+	/*
+	 * Secret key for the specified algorithm to produce a JWS
+	 * the value is set in application.properties
+	 */
 	 @Value("${app.jwtSecret}")
 	 private String jwtSecret;
 
+	 /*
+	  * Used for logged in expiration time
+	  * the value is set in application.properties
+	  */
 	 @Value("${app.jwtExpirationInMs}")
 	 private int jwtExpirationInMs;
 	 
+	 /*
+	  * This method is used to generate token for user when user logged in
+	  * set subject with the userPrincipal id
+	  * set issued time as now
+	  * set expiration by now + jwtExpirationInMs
+	  * set signWith with HSS12 algorithm and jwtSecret for the secret key
+	  * builds the JWT and serializes it to a compact	  * 
+	  */
 	 public String generateToken(Authentication authentication) {
 		 UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 		 
@@ -40,6 +57,11 @@ public class JwtTokenProvider {
 				 	.compact();
 	 }
 	 
+	 /*
+	  * This method is used to get user id from token
+	  * set secret key and token
+	  * and get body (user id)
+	  */
 	 public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -49,6 +71,10 @@ public class JwtTokenProvider {
         return Long.parseLong(claims.getSubject());
     }
 
+	 /*
+	  * This method is used to validate the token
+	  * if there is no signature exception then it will return true
+	  */
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

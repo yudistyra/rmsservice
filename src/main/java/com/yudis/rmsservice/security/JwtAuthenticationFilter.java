@@ -30,7 +30,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		this.customUserDetailService = customUserDetailService;
 	}
 
-
+	/*
+	 * This method is used to
+	 * get jwt from HttpServletRequest
+	 * check if jwt has text and validate the token
+	 * get user id from jwt
+	 * load UserDetails by user id
+	 * 
+	 * 
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -54,7 +62,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 	
-	
+	/*
+	 * This method is used to get the ... from HttpServletRequest
+	 * get header with "Authorization" argument
+	 * check if has text and starts with "Bearer "
+	 * return with substring 7 and token length arguments
+	 */
 	private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

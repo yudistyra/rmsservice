@@ -20,7 +20,9 @@ import com.yudis.rmsservice.security.CustomUserDetailsService;
 import com.yudis.rmsservice.security.JwtAuthenticationEntryPoint;
 import com.yudis.rmsservice.security.JwtAuthenticationFilter;
 import com.yudis.rmsservice.security.JwtTokenProvider;
-
+/*
+ * This class is used to configure Spring Security in the application
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -44,6 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new JwtAuthenticationFilter(jwtProvider, customUserDetailsService);
 	}
 
+	/*
+	 * This method is used to configure the AuthenticationManagerBuilder
+	 * set the userDetailsService with CustomUserDetailsService
+	 * and set the passwordEncoder
+	 */
 	@Override
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
@@ -55,11 +62,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+	/*
+	 * This method is used to set the password encoder
+	 * the password encoder is set with BCryptPasswordEncoder
+	 */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+ 
+    /*
+     * This method is used to configure the HttpSecurity
+     * set corsFilter and CSRF support disabled
+     * set exception handling with JwtAuthenticationEntryPoint 
+     * set session creation policy with STATELESS
+     * and permit all authorize requests
+     */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -95,6 +113,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
+	/*
+	 * this method is used to configure the WebSecurity
+	 * set to ignoring some url
+	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**");

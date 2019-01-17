@@ -40,8 +40,12 @@ public class AuthController {
 		this.tokenProvider = tokenProvider;
 	}
 
-
-
+    /*
+     * This method is used for the authentication process
+     * get username and password from loginRequest
+     * generate token from JwtTokenProvider
+     * and set the ApiResponse whether it's success or not
+     */
 	@ApiOperation(value = "This API will generate access token.")
     @PostMapping()
     @ResponseStatus(HttpStatus.OK)

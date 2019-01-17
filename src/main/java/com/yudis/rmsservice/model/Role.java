@@ -10,6 +10,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/*
+ * This class is represents user's role 
+ * to give permission for user to perform a group of tasks
+ * 
+ */
+
 @Data
 @Builder
 @AllArgsConstructor
