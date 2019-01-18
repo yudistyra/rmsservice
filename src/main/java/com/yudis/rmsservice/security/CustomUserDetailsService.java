@@ -22,9 +22,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	/*
-	 * This method is for authentication used to load UserDetails by username
-	 * find user by username with UserRepository
-	 * then create UserPrincipal by the user's found by username
+	 * This method load UserDetails by user name
+	 * find user by user name with UserRepository
+	 * then create UserPrincipal by the user's found by user name
+	 * @return UserPrincipal created by user's information
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -34,9 +35,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 	
 	/*
-	 * This method is used to load UserDetails by user id
+	 * This method load UserDetails by user id
 	 * find user by user id with UserRepository
 	 * then create UserPrincipal by the user's found by user id
+	 * @return UserPrincipal created by user's information
 	 */
 	public UserDetails loadUserById(Long id) {
 		User user = userRepository.findById(id).orElseThrow(

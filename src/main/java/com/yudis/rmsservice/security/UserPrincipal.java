@@ -14,7 +14,7 @@ import com.yudis.rmsservice.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 /*
- * this user is used for authorization
+ * this class is used for authorization
  * 
  */
 @Data
@@ -30,10 +30,11 @@ public class UserPrincipal implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     /*
-     * This method is used to create the UserPrincipal by User object
+     * This method create the UserPrincipal by User object
+     * @param user user's information that will be used to create UserPrincipal
      * set authorities by user role
-     * and set user information into UserPrincipal
-     * return the UserPrincipal with user information
+     * set user information into UserPrincipal
+     * @return the UserPrincipal with user information
      */
     public static UserPrincipal create(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();

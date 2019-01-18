@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	/*
-	 * This method is used to configure the AuthenticationManagerBuilder
+	 * This method configure the AuthenticationManagerBuilder
 	 * set the userDetailsService with CustomUserDetailsService
 	 * and set the passwordEncoder
 	 */
@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 	/*
-	 * This method is used to set the password encoder
+	 * This method set the password encoder
 	 * the password encoder is set with BCryptPasswordEncoder
 	 */
     @Bean
@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
  
     /*
-     * This method is used to configure the HttpSecurity
+     * This method configure the HttpSecurity
      * set corsFilter and CSRF support disabled
      * set exception handling with JwtAuthenticationEntryPoint 
      * set session creation policy with STATELESS
@@ -114,7 +114,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	/*
-	 * this method is used to configure the WebSecurity
+	 * This method configure the WebSecurity
 	 * set to ignoring some url
 	 */
 	@Override

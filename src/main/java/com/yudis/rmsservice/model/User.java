@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
  * This class is used to store information about an user 
  * to do authentication
  * and specify its role
- * 
  */
 
 @Data

@@ -31,13 +31,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 
 	/*
-	 * This method is used to
+	 * This method is used to set authentication with token filter
 	 * get jwt from HttpServletRequest
 	 * check if jwt has text and validate the token
 	 * get user id from jwt
 	 * load UserDetails by user id
-	 * 
-	 * 
+	 * set UsernamePasswordAuthenticationToken using userDetails information
+	 * set the SecurityContextHolder authentication
+	 * set FilterChain with HttpServletResponse and HttpServletRequest
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -63,10 +64,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 	
 	/*
-	 * This method is used to get the ... from HttpServletRequest
+	 * This method is used to get the bearer token from HttpServletRequest
 	 * get header with "Authorization" argument
 	 * check if has text and starts with "Bearer "
-	 * return with substring 7 and token length arguments
+	 * remove "Bearer " text to get token value only
+	 * @return Bearer token from Authorization header
 	 */
 	private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");

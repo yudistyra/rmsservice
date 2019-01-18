@@ -22,7 +22,9 @@ import com.yudis.rmsservice.security.JwtTokenProvider;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
+/*
+ * This class is used for authentication controller
+ */
 @Api(description = "This is my Authentication Controller")
 @RestController
 @RequestMapping(AuthController.BASE_URL)
@@ -41,10 +43,11 @@ public class AuthController {
 	}
 
     /*
-     * This method is used for the authentication process
-     * get username and password from loginRequest
+     * This method is used to authenticate the user
+     * @param loginRequest contains user name and password
+     * authenticate the user name and password with AuthenticationManager by UsernamePasswordAuthenticationToken
      * generate token from JwtTokenProvider
-     * and set the ApiResponse whether it's success or not
+     * @return ApiResponse whether it's success or not
      */
 	@ApiOperation(value = "This API will generate access token.")
     @PostMapping()

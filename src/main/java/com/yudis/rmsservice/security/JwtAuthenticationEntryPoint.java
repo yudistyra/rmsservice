@@ -20,9 +20,9 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
 
 	/*
-	 * This method is to commence the authentication scheme
+	 * This method commence the authentication scheme
 	 * add logger error with message to show error in console
-	 * send error with message SC_UNAUTHORIZED for the error status code
+	 * send error with message and SC_UNAUTHORIZED for the error status code
 	 */
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,

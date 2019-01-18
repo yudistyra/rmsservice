@@ -16,7 +16,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 /*
- * This class is used to handle the user token
+ * This class is used to manage the user token
  */
 @Component
 public class JwtTokenProvider {
@@ -36,12 +36,12 @@ public class JwtTokenProvider {
 	 private int jwtExpirationInMs;
 	 
 	 /*
-	  * This method is used to generate token for user when user logged in
+	  * This method generate token for user when user logged in
 	  * set subject with the userPrincipal id
 	  * set issued time as now
 	  * set expiration by now + jwtExpirationInMs
 	  * set signWith with HSS12 algorithm and jwtSecret for the secret key
-	  * builds the JWT and serializes it to a compact	  * 
+	  * builds the JWT and serializes it to a compact
 	  */
 	 public String generateToken(Authentication authentication) {
 		 UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
@@ -58,9 +58,10 @@ public class JwtTokenProvider {
 	 }
 	 
 	 /*
-	  * This method is used to get user id from token
+	  * This method get user id from token
 	  * set secret key and token
 	  * and get body (user id)
+	  * @return claims that parsed into id by token and secret key
 	  */
 	 public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
@@ -72,8 +73,8 @@ public class JwtTokenProvider {
     }
 
 	 /*
-	  * This method is used to validate the token
-	  * if there is no signature exception then it will return true
+	  * This method validate the token
+	  * @return true if there is no signature exception else false
 	  */
     public boolean validateToken(String authToken) {
         try {
