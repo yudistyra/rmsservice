@@ -1,9 +1,29 @@
 # rmsservice
 
-### Project Lombok
+resource management system study case API
 
-This project is use Project Lombok. Project Lombok is an open source library for Java that helps reuse repetitive code and save timeduring development through annotations. 
+## Install
 
-Lombok generates code, for example, getters, setters, and toString, and the IDE does the same thing for us only it generates in our source code while Lombok generates it in the ".class" file directly.
+- Clone this project
+- Configure the database connection in `/src/main/resources/application.properties`
+- Open command prompt go to the application root folder
+- Run `mvn spring-boot:run` command
 
-Install Project Lombok to avoid issues on IDE. Find Lombok Project official documentation at: [https://projectlombok.org/](https://projectlombok.org/)
+## Built With
+
+* [Maven] (https://maven.apache.org/) - project management tool
+* [Spring Boot] (https://spring.io/projects/spring-boot) - java web framework
+* [Spring Security] - java web framework
+* [Mysql] (https://www.mysql.com/) - Database
+* [Project Lombok] (https://projectlombok.org/) - Java library that helps reuse repetitive code
+* [Swagger] (https://swagger.io/) - Generate API Documentation
+
+## Testing
+- Open command prompt go to the application root folder
+- Run `mvn test` command
+
+## Testing Tool
+* [Cucumber] (https://maven.apache.org/) - project management tool
+
+## Api Documentation
+ - The api documentation will be available at http://localhot:8080/rmsservice/swagger-ui.html
