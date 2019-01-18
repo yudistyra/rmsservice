@@ -23,7 +23,7 @@ resource management system study case API
 - Run `mvn test` command
 
 ## Testing Tool
-* [Cucumber] (https://maven.apache.org/) - project management tool
+* [Cucumber] (https://cucumber.io/) - integration testing framework
 
 ## Api Documentation
  - The api documentation will be available at http://localhot:8080/rmsservice/swagger-ui.html
