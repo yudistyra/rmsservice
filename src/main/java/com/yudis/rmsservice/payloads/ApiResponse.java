@@ -1,5 +1,7 @@
 package com.yudis.rmsservice.payloads;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,12 +12,11 @@ import lombok.NoArgsConstructor;
  * message to return the response message (e.g. success, Invalid Username or Password!, etc)
  * and use JWTAuthenticationResponse for authentication response
  */
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ApiResponse {
+@NoArgsConstructor
+public class ApiResponse<T> {
 	private int status;
-    private String message;
-    private JwtAuthenticationResponse jwtResponse;
-    
+    private List<T> result;
 }

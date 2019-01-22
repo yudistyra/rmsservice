@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
-import com.yudis.rmsservice.payloads.ApiResponse;
 import com.yudis.rmsservice.payloads.JwtAuthenticationResponse;
 import com.yudis.rmsservice.payloads.LoginRequest;
 import com.yudis.rmsservice.security.JwtTokenProvider;
@@ -52,8 +51,7 @@ public class AuthController {
 	@ApiOperation(value = "This API will generate access token.")
     @PostMapping()
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
+    public JwtAuthenticationResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
     	try {
     		Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -65,9 +63,10 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             String jwt = tokenProvider.generateToken(authentication);
-            return new ApiResponse(200, "success", new JwtAuthenticationResponse(jwt));
+            
+            return new JwtAuthenticationResponse(200,jwt);
 		} catch (BadCredentialsException e) {
-			return new ApiResponse(401, "Invalid Username or Password!", null);
+            return new JwtAuthenticationResponse(401,null);
 		}
         
     }

@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class JwtAuthenticationResponse {
+	private int status;
 	private String accessToken;
     private String tokenType = "Bearer";
 
-    public JwtAuthenticationResponse(String accessToken) {
+    public JwtAuthenticationResponse(int status,String accessToken) {
+    	this.status = status;
         this.accessToken = accessToken;
     }
 

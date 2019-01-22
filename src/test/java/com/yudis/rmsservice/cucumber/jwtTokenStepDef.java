@@ -59,10 +59,10 @@ public class jwtTokenStepDef{
 	
 	@And("^the client receives generated token$")
 	public void the_client_receives_generated_token() throws Throwable {
-		JSONAssert.assertEquals("{status:200, message:success, jwtResponse:{accessToken:x, tokenType:Bearer}}", response.getBody(),  
+		JSONAssert.assertEquals("{status: 200, accessToken:x, tokenType:Bearer}", response.getBody(),  
 				  new CustomComparator(
 				  JSONCompareMode.STRICT, 
-				  new Customization("jwtResponse.accessToken", 
+				  new Customization("accessToken", 
 				  new RegularExpressionValueMatcher<Object>("(.+)"))));
 	}
 }
